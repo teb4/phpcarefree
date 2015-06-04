@@ -27,11 +27,19 @@
     use function phpcarefree\get_text;
     use function phpcarefree\get_time_of_day;
     use function phpcarefree\get_type;
+    use function phpcarefree\str_case_cmp;
+    use function phpcarefree\str_chr;
+    use function phpcarefree\str_cmp;
+    use function phpcarefree\str_coll;
+    use function phpcarefree\str_cspn;
+    use function phpcarefree\str_ftime;
     
     class test_functions extends WebTestCase{
         function testSelf(){
 	    $this->assertTrue( true );
         }
+        
+// get_        
         function test_get_all_headers(){
             $result = get_all_headers();
             $this->assertTrue( $result === getallheaders() );
@@ -147,5 +155,45 @@
             $result = get_type( $var );
             $this->assertTrue( $result === gettype( $var ) );
         }
+        
+// str_
+        function test_str_case_cmp(){
+            $str1 = 'Abs';
+            $str2 = 'AcS';
+            $result = str_case_cmp( $str1, $str2 );
+            $this->assertTrue( $result === strcasecmp( $str1, $str2 ) );
+        } 
+        
+        function test_str_chr(){
+            $haystack = 'name@example.com';
+            $needle = '@';
+            $part = true;
+            $result = str_chr($haystack, $needle, $part);
+            $this->assertTrue( $result, 'name' );
+            $this->assertTrue( $result === strchr($haystack, $needle, $part) );
+        }         
+        function test_str_cmp(){
+            $str1 = 'Abs';
+            $str2 = 'AcS';
+            $result = str_cmp($str1, $str2);
+            $this->assertTrue( $result === strcmp( $str1, $str2 ) );
+        }        
+        function test_str_coll(){
+            $str1 = 'Abs';
+            $str2 = 'AcS';
+            $result = str_coll($str1, $str2);
+            $this->assertTrue( $result === strcoll( $str1, $str2 ) );
+        }        
+        function test_str_cspn(){
+            $str1 = 'Abs';
+            $str2 = 'AcS';
+            $result = str_cspn($str1, $str2);
+            $this->assertTrue( $result === strcspn( $str1, $str2 ) );
+        }        
+        function test_str_ftime(){
+            $format = 'Abs';
+            $result = str_ftime($format);
+            $this->assertTrue( $result === strftime($format) );
+        }        
     }
 /* eof */
